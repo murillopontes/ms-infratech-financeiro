@@ -24,10 +24,13 @@ public class FinanceiroEndPoint {
 	public Response recuperaTotalPessoasAdimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
 			@DefaultValue("false") @QueryParam("isFornecedor") Boolean isFornecedor,
-			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador) throws NumberFormatException {
+			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
 		try {
-			return criarRespostaSucesso(
-					finaceiroService.recuperaTotalPessoasAdimplentes(idEmpresa, isCliente, isFornecedor, isFornecedor));
+			return criarRespostaSucesso(finaceiroService.recuperaTotalPessoasAdimplentes(idEmpresa, isCliente,
+					isFornecedor, isFornecedor, isEsteMes, isEsteAno, isDesdeInicio));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -40,10 +43,13 @@ public class FinanceiroEndPoint {
 	public Response recuperaTotalPessoasInadimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
 			@DefaultValue("false") @QueryParam("isFornecedor") Boolean isFornecedor,
-			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador) throws NumberFormatException {
+			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
 		try {
 			return criarRespostaSucesso(finaceiroService.recuperaTotalPessoasInadimplentes(idEmpresa, isCliente,
-					isFornecedor, isFornecedor));
+					isFornecedor, isFornecedor, isEsteMes, isEsteAno, isDesdeInicio));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -63,18 +69,11 @@ public class FinanceiroEndPoint {
 		}
 	}
 
-	/**
-	 * TODO Funcionalidade Icompleta, falta estruturar a disponibilizacao do Saldo
-	 * Promocional .
-	 * 
-	 * @param idEmpresa
-	 * @return
-	 * @throws NumberFormatException
-	 */
 	@GET
-	@Path("/getSaldoPromocionalDisponivel/{idEmpresa}")
+	@Path("/recuperaSaldoPromocionalDisponivel/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa) throws NumberFormatException {
+	public Response recuperaSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa)
+			throws NumberFormatException {
 		try {
 			return criarRespostaSucesso(finaceiroService.recuperaSaldoPromocionalDisponivel(idEmpresa));
 		} catch (Exception e) {
@@ -82,6 +81,118 @@ public class FinanceiroEndPoint {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
+
+	@GET
+	@Path("/recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro(@PathParam("idEmpresa") Long idEmpresa)
+			throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro(idEmpresa));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/recuperaTotalCobrancasPrevistas/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaTotalCobrancasPrevistas(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaTotalCobrancasPrevistas(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/recuperaTotalCobrancasVencidas/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaTotalCobrancasVencidas(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaTotalCobrancasVencidas(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/recuperaTotalCobrancasRecebidas/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaTotalCobrancasRecebidas(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaTotalCobrancasRecebidas(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+	
+	
+	@GET
+	@Path("/recuperaFaturamentoTotalPrevisto/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaFaturamentoTotalPrevisto(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaFaturamentoTotalPrevisto(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/recuperaFaturamentoTotalConfirmado/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaFaturamentoTotalConfirmado(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaFaturamentoTotalConfirmado(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/recuperaFaturamentoTotalRecebido/{idEmpresa}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recuperaFaturamentoTotalRecebido(@PathParam("idEmpresa") Long idEmpresa,
+			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
+			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
+			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaFaturamentoTotalRecebido(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+	
 
 	/**
 	 * 

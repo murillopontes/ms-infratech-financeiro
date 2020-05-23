@@ -19,9 +19,9 @@ public class FinanceiroEndPoint {
 	private FinanceiroService finaceiroService;
 
 	@GET
-	@Path("/recuperaTotalPessoasAdimplentes/{idEmpresa}")
+	@Path("/getTotalPessoasAdimplentes/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaTotalPessoasAdimplentes(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getTotalPessoasAdimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
 			@DefaultValue("false") @QueryParam("isFornecedor") Boolean isFornecedor,
 			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador,
@@ -38,9 +38,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaTotalPessoasInadimplentes/{idEmpresa}")
+	@Path("/getTotalPessoasInadimplentes/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaTotalPessoasInadimplentes(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getTotalPessoasInadimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
 			@DefaultValue("false") @QueryParam("isFornecedor") Boolean isFornecedor,
 			@DefaultValue("false") @QueryParam("isColaborador") Boolean isColaborador,
@@ -57,9 +57,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaSaldoTotalDisponivelResgate/{idEmpresa}")
+	@Path("/getSaldoTotalDisponivelResgate/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaSaldoTotalDisponivelResgate(@PathParam("idEmpresa") Long idEmpresa)
+	public Response getSaldoTotalDisponivelResgate(@PathParam("idEmpresa") Long idEmpresa)
 			throws NumberFormatException {
 		try {
 			return criarRespostaSucesso(finaceiroService.recuperaSaldoTotalDisponivelResgate(idEmpresa));
@@ -70,10 +70,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaSaldoPromocionalDisponivel/{idEmpresa}")
+	@Path("/getSaldoPromocionalDisponivel/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa)
-			throws NumberFormatException {
+	public Response getSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa) throws NumberFormatException {
 		try {
 			return criarRespostaSucesso(finaceiroService.recuperaSaldoPromocionalDisponivel(idEmpresa));
 		} catch (Exception e) {
@@ -83,9 +82,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro/{idEmpresa}")
+	@Path("/getDataHoraUltimaAtualizacaoProcessamentoFinanceiro/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro(@PathParam("idEmpresa") Long idEmpresa)
+	public Response getDataHoraUltimaAtualizacaoProcessamentoFinanceiro(@PathParam("idEmpresa") Long idEmpresa)
 			throws NumberFormatException {
 		try {
 			return criarRespostaSucesso(
@@ -97,9 +96,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaTotalCobrancasPrevistas/{idEmpresa}")
+	@Path("/getTotalCobrancasPrevistas/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaTotalCobrancasPrevistas(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getTotalCobrancasPrevistas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -113,9 +112,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaTotalCobrancasVencidas/{idEmpresa}")
+	@Path("/getTotalCobrancasVencidas/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaTotalCobrancasVencidas(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getTotalCobrancasVencidas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -129,9 +128,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaTotalCobrancasRecebidas/{idEmpresa}")
+	@Path("/getTotalCobrancasRecebidas/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaTotalCobrancasRecebidas(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getTotalCobrancasRecebidas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -143,12 +142,11 @@ public class FinanceiroEndPoint {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
-	
-	
+
 	@GET
-	@Path("/recuperaFaturamentoTotalPrevisto/{idEmpresa}")
+	@Path("/getFaturamentoTotalPrevisto/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaFaturamentoTotalPrevisto(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getFaturamentoTotalPrevisto(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -162,15 +160,15 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaFaturamentoTotalConfirmado/{idEmpresa}")
+	@Path("/getFaturamentoTotalConfirmado/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaFaturamentoTotalConfirmado(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getFaturamentoTotalConfirmado(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
 		try {
-			return criarRespostaSucesso(
-					finaceiroService.recuperaFaturamentoTotalConfirmado(idEmpresa, isEsteMes, isEsteAno, isDesdeInicio));
+			return criarRespostaSucesso(finaceiroService.recuperaFaturamentoTotalConfirmado(idEmpresa, isEsteMes,
+					isEsteAno, isDesdeInicio));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -178,9 +176,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/recuperaFaturamentoTotalRecebido/{idEmpresa}")
+	@Path("/getFaturamentoTotalRecebido/{idEmpresa}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recuperaFaturamentoTotalRecebido(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getFaturamentoTotalRecebido(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -192,7 +190,6 @@ public class FinanceiroEndPoint {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 	}
-	
 
 	/**
 	 * 

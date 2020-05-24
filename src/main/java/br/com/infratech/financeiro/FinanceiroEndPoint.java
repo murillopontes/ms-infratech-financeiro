@@ -19,7 +19,7 @@ public class FinanceiroEndPoint {
 	private FinanceiroService finaceiroService;
 
 	@GET
-	@Path("/getTotalPessoasAdimplentes/{idEmpresa}")
+	@Path("/getQuantidadeTotalPessoasAdimplentes")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTotalPessoasAdimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
@@ -38,7 +38,7 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getTotalPessoasInadimplentes/{idEmpresa}")
+	@Path("/getQuantidadeTotalPessoasInadimplentes")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTotalPessoasInadimplentes(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("false") @QueryParam("isCliente") Boolean isCliente,
@@ -57,46 +57,7 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getSaldoTotalDisponivelResgate/{idEmpresa}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSaldoTotalDisponivelResgate(@PathParam("idEmpresa") Long idEmpresa)
-			throws NumberFormatException {
-		try {
-			return criarRespostaSucesso(finaceiroService.recuperaSaldoTotalDisponivelResgate(idEmpresa));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-	}
-
-	@GET
-	@Path("/getSaldoPromocionalDisponivel/{idEmpresa}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa) throws NumberFormatException {
-		try {
-			return criarRespostaSucesso(finaceiroService.recuperaSaldoPromocionalDisponivel(idEmpresa));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-	}
-
-	@GET
-	@Path("/getDataHoraUltimaAtualizacaoProcessamentoFinanceiro/{idEmpresa}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDataHoraUltimaAtualizacaoProcessamentoFinanceiro(@PathParam("idEmpresa") Long idEmpresa)
-			throws NumberFormatException {
-		try {
-			return criarRespostaSucesso(
-					finaceiroService.recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro(idEmpresa));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-	}
-
-	@GET
-	@Path("/getTotalCobrancasPrevistas/{idEmpresa}")
+	@Path("/getQuantidadeTotalCobrancasPrevistas")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTotalCobrancasPrevistas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
@@ -112,7 +73,7 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getTotalCobrancasVencidas/{idEmpresa}")
+	@Path("/getQuantidadeTotalCobrancasVencidas")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTotalCobrancasVencidas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
@@ -128,7 +89,7 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getTotalCobrancasRecebidas/{idEmpresa}")
+	@Path("/getQuantidadeTotalCobrancasRecebidas")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTotalCobrancasRecebidas(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
@@ -144,9 +105,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getFaturamentoTotalPrevisto/{idEmpresa}")
+	@Path("/getValorTotalFaturamentoPrevisto")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getFaturamentoTotalPrevisto(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getValorTotalFaturamentoPrevisto(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -160,9 +121,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getFaturamentoTotalConfirmado/{idEmpresa}")
+	@Path("/getValorTotalFaturamentoConfirmado")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getFaturamentoTotalConfirmado(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getValorTotalFaturamentoConfirmado(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -176,9 +137,9 @@ public class FinanceiroEndPoint {
 	}
 
 	@GET
-	@Path("/getFaturamentoTotalRecebido/{idEmpresa}")
+	@Path("/getValorTotalFaturamentoRecebido")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getFaturamentoTotalRecebido(@PathParam("idEmpresa") Long idEmpresa,
+	public Response getValorTotalFaturamentoRecebido(@PathParam("idEmpresa") Long idEmpresa,
 			@DefaultValue("true") @QueryParam("isEsteMes") Boolean isEsteMes,
 			@DefaultValue("false") @QueryParam("isEsteAno") Boolean isEsteAno,
 			@DefaultValue("false") @QueryParam("isDesdeInicio") Boolean isDesdeInicio) throws NumberFormatException {
@@ -189,6 +150,74 @@ public class FinanceiroEndPoint {
 			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
+	}
+
+	@GET
+	@Path("/getValorSaldoDisponivelResgate")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorSaldoDisponivelResgate(@PathParam("idEmpresa") Long idEmpresa)
+			throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(finaceiroService.recuperaSaldoTotalDisponivelResgate(idEmpresa));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/getValorSaldoPromocionalDisponivel")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorSaldoPromocionalDisponivel(@PathParam("idEmpresa") Long idEmpresa)
+			throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(finaceiroService.recuperaSaldoPromocionalDisponivel(idEmpresa));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/getDataHoraUltimaAtualizacaoProcessamentoFinanceiro")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDataHoraUltimaAtualizacaoProcessamentoFinanceiro(@PathParam("idEmpresa") Long idEmpresa)
+			throws NumberFormatException {
+		try {
+			return criarRespostaSucesso(
+					finaceiroService.recuperaDataHoraUltimaAtualizacaoProcessamentoFinanceiro(idEmpresa));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
+
+	@GET
+	@Path("/getValorTotalDividasPorPessoa")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorTotalDividasPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+		return criarRespostaSucesso(finaceiroService.recuperaValorTotalDividaPorPessoa(idPessoa));
+	}
+
+	@GET
+	@Path("/getValorTotalAReceberPorPessoa")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorTotalAReceberPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+		return criarRespostaSucesso(finaceiroService.recuperaValorTotalAReceber(idPessoa));
+	}
+
+	@GET
+	@Path("/getValorTotalRecebidoPorPessoa")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorTotalRecebidoPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+		return criarRespostaSucesso(finaceiroService.recuperaValorTotalRecebido(idPessoa));
+	}
+
+	@GET
+	@Path("/getValorTotalDividasPorEmpresa")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getValorTotalDividasPorEmpresa(@PathParam("idEmpresa") Long idEmpresa) {
+		return criarRespostaSucesso(finaceiroService.recuperaValorTotalDividaPorEmpresa(idEmpresa));
 	}
 
 	/**

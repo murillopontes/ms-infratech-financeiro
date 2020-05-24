@@ -6,9 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 
 import io.quarkus.hibernate.orm.panache.Panache;
 
-
-@ApplicationScoped	
-public class FinanceiroRepository  {
+@ApplicationScoped
+public class FinanceiroRepository {
 
 	/**
 	 * Recupera o total de clientes Adiplemtes.
@@ -115,4 +114,68 @@ public class FinanceiroRepository  {
 
 		return executeSqlNativeQuerySumResult(sql);
 	}
+
+	public Double sumAllValueDividas(Long idEmpresaContratante) {
+		return new Double(123.120);
+	}
+
+	/**
+	 * Soma o valor total de todos os pagamentos recebido por cliente.
+	 * 
+	 * @param idFornecedorCliente
+	 * @return
+	 */
+	public Float sumTotalAmountOfDebt(Long idFornecedorCliente) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append("	SUM(fin_parcela.valor_parcela) ");
+		sql.append("FROM ");
+		sql.append("	public.fin_parcela fin_parcela, ");
+		sql.append("	public.fin_divida fin_divida ");
+		sql.append("WHERE ");
+		sql.append("	fin_parcela.id_divida = fin_divida.id_divida ");
+		sql.append("AND fin_divida.id_fornecedor_cliente = " + idFornecedorCliente);
+		return executeSqlNativeQuerySumResult(sql);
+	}
+
+	/**
+	 * Soma o valor total de todos os pagamentos recebido por cliente.
+	 * 
+	 * @param idFornecedorCliente
+	 * @return
+	 */
+	public Float sumTotalAmountReceivedByIdClient(Long idFornecedorCliente) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append("	SUM(fin_parcela.valor_pago) ");
+		sql.append("FROM ");
+		sql.append("	public.fin_parcela fin_parcela, ");
+		sql.append("	public.fin_divida fin_divida ");
+		sql.append("WHERE ");
+		sql.append("	fin_parcela.id_divida = fin_divida.id_divida ");
+		sql.append("AND fin_parcela.valor_pago IS NOT NULL ");
+		sql.append("AND fin_divida.id_fornecedor_cliente = " + idFornecedorCliente);
+		return executeSqlNativeQuerySumResult(sql);
+	}
+
+	/**
+	 * Soma o valor total a Receber por Cliente. Parcelas em aberto
+	 * 
+	 * @param idFornecedorCliente
+	 * @return
+	 */
+	public Float sumTotalAmountReceivableByIdClient(Long idFornecedorCliente) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append("	SUM(fin_parcela.valor_parcela) ");
+		sql.append("FROM ");
+		sql.append("	public.fin_parcela fin_parcela, ");
+		sql.append("	public.fin_divida fin_divida ");
+		sql.append("WHERE ");
+		sql.append("	fin_parcela.id_divida = fin_divida.id_divida ");
+		sql.append("AND fin_parcela.valor_pago IS NULL ");
+		sql.append("AND fin_divida.id_fornecedor_cliente = " + idFornecedorCliente);
+		return executeSqlNativeQuerySumResult(sql);
+	}
+
 }

@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
-import br.com.infratech.financeiro.persistencia.FinanceiroRepository;
+import br.com.infratech.financeiro.persistencia.FinanceiroDAO;
 
 @ApplicationScoped
 public class FinanceiroService {
 
-	@Inject
-	private FinanceiroRepository financeiroRepository;
-
+	
 	/**
 	 * TODO Funcionalidade Icompleta
 	 * 
@@ -278,8 +275,8 @@ public class FinanceiroService {
 	 * @param idPessoa
 	 * @return
 	 */
-	public Float recuperaValorTotalDividaPorPessoa(Long idPessoa) {
-		return financeiroRepository.sumTotalAmountOfDebt(idPessoa);
+	public Float recuperaValorTotalDividasDaPessoa(Long idPessoa) {
+		return new FinanceiroDAO().somaValorTotalTodasAsDividasDaPessoa(idPessoa);
 	}
 
 	/**
@@ -288,8 +285,8 @@ public class FinanceiroService {
 	 * @param idPessoa
 	 * @return
 	 */
-	public Float recuperaValorTotalDividaPorEmpresa(Long idEmpresa) {
-		return financeiroRepository.sumTotalAmountOfDebt(idEmpresa);
+	public Float recuperaValorTotalDividasPorEmpresa(Long idEmpresa) {
+		return new FinanceiroDAO().somaValorTotalTodasAsDividasDaEmpresa(idEmpresa);
 	}
 
 	/**
@@ -299,7 +296,7 @@ public class FinanceiroService {
 	 * @return
 	 */
 	public Double recupeValorTotalTodasDividasPorEmpresaContratante(Long idEmpresaContratanteLogada) {
-		return financeiroRepository.sumAllValueDividas(idEmpresaContratanteLogada);
+		return new FinanceiroDAO().sumAllValueDividas(idEmpresaContratanteLogada);
 	}
 
 	/**
@@ -309,7 +306,7 @@ public class FinanceiroService {
 	 * @return
 	 */
 	public Float recuperaValorTotalAReceber(Long idFornecedorCliente) {
-		return financeiroRepository.sumTotalAmountReceivableByIdClient(idFornecedorCliente);
+		return new FinanceiroDAO().sumTotalAmountReceivableByIdClient(idFornecedorCliente);
 	}
 
 	/**
@@ -319,7 +316,7 @@ public class FinanceiroService {
 	 * @return
 	 */
 	public Float recuperaValorTotalRecebido(Long idFornecedorCliente) {
-		return financeiroRepository.sumTotalAmountReceivedByIdClient(idFornecedorCliente);
+		return new FinanceiroDAO().sumTotalAmountReceivedByIdClient(idFornecedorCliente);
 	}
 
 }

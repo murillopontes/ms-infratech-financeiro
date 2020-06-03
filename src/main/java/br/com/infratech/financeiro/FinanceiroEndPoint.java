@@ -195,21 +195,24 @@ public class FinanceiroEndPoint {
 	@GET
 	@Path("/getValorTotalDividasPorPessoa")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getValorTotalDividasPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+	public Response getValorTotalDividasPorPessoa(@PathParam("idEmpresa") Long idEmpresa,
+			@PathParam("idPessoa") Long idPessoa) {
 		return criarRespostaSucesso(finaceiroService.recuperaValorTotalDividaPorPessoa(idPessoa));
 	}
 
 	@GET
 	@Path("/getValorTotalAReceberPorPessoa")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getValorTotalAReceberPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+	public Response getValorTotalAReceberPorPessoa(@PathParam("idEmpresa") Long idEmpresa,
+			@PathParam("idPessoa") Long idPessoa) {
 		return criarRespostaSucesso(finaceiroService.recuperaValorTotalAReceber(idPessoa));
 	}
 
 	@GET
 	@Path("/getValorTotalRecebidoPorPessoa")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getValorTotalRecebidoPorPessoa(@PathParam("idPessoa") Long idPessoa) {
+	public Response getValorTotalRecebidoPorPessoa(@PathParam("idEmpresa") Long idEmpresa,
+			@PathParam("idPessoa") Long idPessoa) {
 		return criarRespostaSucesso(finaceiroService.recuperaValorTotalRecebido(idPessoa));
 	}
 

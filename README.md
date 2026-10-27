@@ -2,6 +2,8 @@
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
+The application container and local runtime require Java 25 (LTS). Its Java 8 bytecode target is retained for the existing Quarkus line.
+
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
 ## Running the application in dev mode

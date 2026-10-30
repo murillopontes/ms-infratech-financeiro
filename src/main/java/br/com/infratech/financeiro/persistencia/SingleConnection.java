@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class SingleConnection {
 
-	private static String url = "jdbc:postgresql://34.70.219.41:5432/gesbuild-db-dev";
+	private static String url = "jdbc:postgresql://localhost:5432/infratech-db";
 
-	private static String password = "db_admin";
+	private static String password = "postgres";
 
 	private static String user = "postgres";
 
